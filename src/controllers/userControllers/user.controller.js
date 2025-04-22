@@ -75,6 +75,28 @@ const loginController = async (req, res, next) => {
   }
 }
 
+const logoutController = async (req, res, next) => {
+  try {
+    if(!token) {
+      return next(new CustomError('No token found', 401));
+    }
+    const blacklistToken = await cacheClient.set(token, true, 'EX', 3600); // 1 hour expiration time
+    if (!blacklistToken) {
+      return next(new CustomError('Failed to blacklist token', 500));
+    }
+    res.clearCookie('token', {
+      httpOnly: true,
+      sameSite: 'none'
+    });
+    res.status(200).json({
+      success: true,
+      message: 'User logged out successfully'
+    });
+  } catch (error) {
+    return next(new CustomError(error.message, 500));
+  }
+}
+
 module.exports = {
   registerController,
   loginController
