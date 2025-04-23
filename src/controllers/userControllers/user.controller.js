@@ -1,6 +1,8 @@
 const User = require('../../models/user.model')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
+const cookieParser = require('cookie-parser')
+const cacheClient = require('../../services/cache.services')
 const CustomError = require('../../utils/customError')
 
 
@@ -77,6 +79,7 @@ const loginController = async (req, res, next) => {
 
 const logoutController = async (req, res, next) => {
   try {
+    const token = req.cookies.token;
     if(!token) {
       return next(new CustomError('No token found', 401));
     }
@@ -99,5 +102,7 @@ const logoutController = async (req, res, next) => {
 
 module.exports = {
   registerController,
-  loginController
+  loginController,
+  logoutController
 };
+

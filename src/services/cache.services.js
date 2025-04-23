@@ -5,3 +5,5 @@ const cacheClient = new Redis({
     port: process.env.REDIS_PORT,
     password: process.env.REDIS_PASSWORD,
     });
+
+module.exports = cacheClient

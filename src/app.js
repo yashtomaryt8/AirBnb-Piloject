@@ -1,5 +1,7 @@
 const express = require('express')
 const app = express()
+const cookieParser = require('cookie-parser')
+app.use(cookieParser());
 const userRoutes = require('./routes/userRoutes/user.routes')
 
 // middleware to parse json data
