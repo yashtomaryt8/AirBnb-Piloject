@@ -19,4 +19,6 @@ app.get('/', (req,res) => {
 
 app.use('/api/auth', userRoutes)
 
+app.use(errorHandler) // error handling middleware
+
 module.exports = app

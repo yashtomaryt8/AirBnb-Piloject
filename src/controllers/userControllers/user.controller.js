@@ -74,10 +74,7 @@ const loginController = async (req, res, next) => {
 
   } catch (error) {
     // return next(new CustomError(error.message, 401));
-    res.json({ 
-      success: false,
-      message: error.message
-    })
+    return next(new CustomError(error.message || 'Invalid credentials', 401));
   }
 }
 
@@ -127,7 +124,7 @@ const currentUserController = async (req, res, next) => {
 }
 
 // to check blacklist token
-// first register -> login copy the token -> logout -> paste the token in currentUser and check the response
+// first register -> login copy the token -> logout -> paste the token in currentUser postman and check the response
 
 module.exports = {
   registerController,
