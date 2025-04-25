@@ -6,6 +6,7 @@ const morgan = require('morgan')
 
 const userRoutes = require('./routes/userRoutes/user.routes')
 const propertyRoutes = require('./routes/propertyRoutes/property.route')
+const bookingRoutes = require('./routes/bookingRoutes/booking.route')
 const errorHandler = require('./middlewares/errorHandler')  
 
 // middleware to parse json data
@@ -20,6 +21,7 @@ app.get('/', (req,res) => {
 
 app.use('/api/auth', userRoutes)
 app.use('/api/property', propertyRoutes)
+app.use('/api/booking', bookingRoutes)
 
 app.use(errorHandler) // error handling middleware
 

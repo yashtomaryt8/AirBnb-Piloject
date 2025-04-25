@@ -1,6 +1,6 @@
 npm init -y
 
-npm i express jsonwebtoken mongoose cors cookie-parser multer bcrypt dotenv
+npm i express jsonwebtoken mongoose cors cookie-parser multer bcrypt dotenv razorpay morgan
 
 src -> app.js
 index.js

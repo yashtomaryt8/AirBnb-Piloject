@@ -9,6 +9,7 @@ router.get('/read/:id', authMiddleware, propertyController.propertyReadControlle
 router.put('/update/:id', authMiddleware, propertyController.propertyUpdateController)
 router.delete('/delete/:id', authMiddleware, propertyController.propertyDeleteController)
 router.get('/', authMiddleware, propertyController.propertyListController)
+router.post('/search', authMiddleware, propertyController.searchPropertyController)
 
 
 module.exports = router

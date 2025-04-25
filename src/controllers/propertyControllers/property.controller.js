@@ -1,4 +1,5 @@
 const PropertyModel = require('../../models/propertyModels/property.model');
+const CustomError = require('../../utils/customError');
 
 
 const propertyCreateController = async (req, res, next) => {
@@ -26,7 +27,7 @@ const propertyCreateController = async (req, res, next) => {
             price,
             location,
             images,
-            user: userId
+            host : userId
         });
         if(!property) {
             return next(new CustomError('Property not created', 400));
@@ -45,13 +46,13 @@ const propertyCreateController = async (req, res, next) => {
 const propertyReadController = async (req, res, next) => {
     const { id } = req.params;
     if(!id) { 
-        return new CustomError('Property ID is required', 400);
+        return next(new CustomError('Property ID is required', 400))
     }
 
     try {
-        const property = await PropertyModel.findById(id).populate('user', 'username email');
+        const property = await PropertyModel.findById(id).populate('host', 'username email');
         if (!property) {
-            return new CustomError('Property not found', 404);
+            return next(new CustomError('Property not found', 404))
         }
         res.status(200).json({
             success: true,
@@ -59,11 +60,7 @@ const propertyReadController = async (req, res, next) => {
             data : property
         });
     } catch (error) {
-        res.status(500).json({
-            success: false,
-            message: 'Error fetching property',
-            error: error.message
-        });
+        return next(new CustomError('Invalid Property ID format', 400))
     }
 }
 
@@ -135,7 +132,7 @@ const propertyDeleteController = async (req, res, next) => {
 
 const propertyListController = async (req, res, next) => {
     try {
-        const properties = await PropertyModel.find().populate('user', 'username email');
+        const properties = await PropertyModel.find().populate('host', 'username email');
         res.status(200).json({
             success: true,
             properties
@@ -149,6 +146,28 @@ const propertyListController = async (req, res, next) => {
     }
 }
 
+const searchPropertyController = async (req, res, next) => {
+    try {
+        const { location, minPrice, maxPrice } = req.body
+        const query = {
+            ...(location && { location :{ $regex: location, $options: 'i' }}), // i is for case insensitive
+            ...(minPrice && { price: { $gte: minPrice }}),
+            ...(maxPrice && { price: { $lte: maxPrice }})
+        }
+
+        const properties = await PropertyModel.find(query).populate('host', 'username email');
+        if (!properties) {
+            return next(new CustomError('No properties found', 404));
+        }
+        res.status(200).json({
+            success: true,
+            message: 'Properties fetched successfully',
+            data: properties
+        });
+    } catch (error) {
+        next(new CustomError(error.message, 500));
+    }
+}
 
 
 module.exports = {
@@ -156,5 +175,6 @@ module.exports = {
     propertyReadController,
     propertyUpdateController,
     propertyDeleteController,
-    propertyListController
+    propertyListController,
+    searchPropertyController
 }
