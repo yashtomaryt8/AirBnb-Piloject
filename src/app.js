@@ -5,6 +5,7 @@ const cookieParser = require('cookie-parser')
 const morgan = require('morgan')
 
 const userRoutes = require('./routes/userRoutes/user.routes')
+const propertyRoutes = require('./routes/propertyRoutes/property.route')
 const errorHandler = require('./middlewares/errorHandler')  
 
 // middleware to parse json data
@@ -18,6 +19,7 @@ app.get('/', (req,res) => {
 })
 
 app.use('/api/auth', userRoutes)
+app.use('/api/property', propertyRoutes)
 
 app.use(errorHandler) // error handling middleware
 

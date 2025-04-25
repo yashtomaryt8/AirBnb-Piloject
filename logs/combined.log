@@ -1,1 +1,2 @@
 2025-04-24T12:15:46.273Z error: 500 ~ Invalid credentials - POST - /api/auth/login - ::1
+2025-04-25T11:20:32.914Z error: 500 ~ User already exists - POST - /api/auth/register - ::1
