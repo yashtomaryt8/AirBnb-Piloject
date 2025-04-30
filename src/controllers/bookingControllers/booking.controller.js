@@ -2,6 +2,9 @@ const Booking = require('../../models/bookingModels/booking.model')
 const Property = require('../../models/propertyModels/property.model')
 const { paymentInstance } = require('../../services/payment.services')
 const CustomError = require('../../utils/customError')
+const sendEmail = require('../../utils/email')
+const { bookingConfirmationTemplate } = require('../../utils/emailTemplate')
+
 
 const createBookingController = async (req, res, next) => {
     const { propertyId, checkInDate, checkOutDate, totalPrice } = req.body
@@ -52,13 +55,25 @@ const createBookingController = async (req, res, next) => {
 
         // email
 
-        if (!booking) {
-            return next(new CustomError('Booking not created', 400))
-        }
+        const bookingTemplate = bookingConfirmationTemplate(
+            req.user.username,
+            property.location,
+            checkInDate,
+            checkOutDate
+        )
+
+        await sendEmail(
+            "yashtomar.yt8@gmail.com",               // <-- send to the user's registered email
+            "Booking Confirmation",
+            "Booking confirmation email", // text fallback
+            bookingTemplate
+          );
+        
 
         res.status(201).json({
             success: true,
             message: 'Booking created successfully',
+            amount: totalPrice,
             data: booking
         })
     } catch (error) {
@@ -66,6 +81,31 @@ const createBookingController = async (req, res, next) => {
     }
 }
 
+const viewBookingController = async (req, res, next) => {
+    const { userId } = req.params
+
+    try{
+        if (!userId) {
+            return next(new CustomError('User ID is required', 400))
+        }
+
+        const bookings = await Booking.findOne({ userId }).populate('userId', 'username email').populate('propertyId', 'title location price')
+        if (!bookings) {
+            return next(new CustomError('No bookings found for this user', 404))
+        }
+
+        res.status(200).json({
+            success: true,
+            message: 'Bookings retrieved successfully',
+            data: bookings
+        })
+    } catch (error) {
+        next(new CustomError(error.message, 500))
+    }
+}
+
+
 module.exports = {
-    createBookingController
+    createBookingController,
+    viewBookingController
 }

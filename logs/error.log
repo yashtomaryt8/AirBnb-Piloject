@@ -13,3 +13,5 @@
 2025-04-25T22:33:29.496Z error: 500 ~ Property not found - POST - /api/booking/create - ::1
 2025-04-25T22:36:24.173Z error: 500 ~ paymentInstance is not defined - POST - /api/booking/create - ::1
 2025-04-25T22:37:58.515Z error: 500 ~ Cannot read properties of undefined (reading 'create') - POST - /api/booking/create - ::1
+2025-04-28T20:08:10.459Z error: 500 ~ sendEmail is not a function - POST - /api/booking/create - ::1
+2025-04-30T10:15:00.834Z error: 500 ~ No bookings found for this user - GET - /api/booking/user-bookings/6811f80c5728973517d05ad9 - ::1
