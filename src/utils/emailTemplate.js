@@ -5,7 +5,7 @@ const bookingConfirmationTemplate = (
     checkOutDate,
 ) => {
     return `
-    <h2> Hello ${username},</h2>
+    <h2> Hello, ${username},</h2>
     <p>Thank you for booking with us! We are excited to confirm your reservation at our property in ${location}.</p>
     <h3>Booking Details:</h3>
     <ul>
@@ -19,6 +19,25 @@ const bookingConfirmationTemplate = (
     `
 }
 
+
+const paymentConfirmationTemplate = (username, location, status, totalPrice, checkInDate, checkOutDate) => {
+    return `
+    <h2> Hello, ${username},</h2>
+    <p>Thank you for your payment! We are excited to confirm your reservation at our property in ${location}.</p>
+    <h3>Booking Details:</h3>
+    <ul>
+        <li><strong>Check-in Date:</strong> ${checkInDate}</li>
+        <li><strong>Check-out Date:</strong> ${checkOutDate}</li>
+        <li><strong>Status:</strong> ${status}</li>
+        <li><strong>Total Price:</strong> ₹${totalPrice}</li>
+    </ul>
+    <p>If you have any questions or need further assistance, feel free to reach out to us.</p>
+    <p>We look forward to welcoming you soon!</p>
+
+    `
+}
+
 module.exports = {
     bookingConfirmationTemplate,
+    paymentConfirmationTemplate
 }

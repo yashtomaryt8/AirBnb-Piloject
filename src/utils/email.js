@@ -1,3 +1,4 @@
+// services/email.js
 const nodemailer = require("nodemailer");
 
 const transporter = nodemailer.createTransport({
@@ -9,36 +10,38 @@ const transporter = nodemailer.createTransport({
     clientSecret: process.env.CLIENT_SECRET,
     refreshToken: process.env.REFRESH_TOKEN,
   },
-})
+});
 
-transporter.verify((error, success) => {
-  if (error) {
-    console.log(error)
+// this will let you know if your SMTP config is good
+transporter.verify((err, success) => {
+  if (err) {
+    console.error("❌ Email server setup error:", err);
   } else {
-    console.log("Email server is ready to take messages")
+    console.log("✅ Email server is ready to take messages");
   }
-}
-)
+});
 
-const sendEmail = async (to, subject, html) => { 
-  try {
-    const info = await transporter.sendMail({
-      from: `YASH TOMAR <${process.env.EMAIL_USER}>`,
-      to,
-      subject,
-      html,
-
-    })
-
-    const result = await transporter.sendMail(sendEmail)
-    console.log("✅ Email sent:", result.response)
-
-    console.log('Message sent: %s', info.messageId)
-    console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info))
+const sendEmail = async (to, subject, html) => {
+  // 1) Validate recipient
+  if (!to) {
+    throw new Error("No recipient email address provided to sendEmail()");
   }
-  catch (error) {
-    console.error('Error sending email:', error)
-  }
-}
 
-module.exports = sendEmail
+  // 2) Single sendMail call
+  const mailOptions = {
+    from: `YASH TOMAR <${process.env.EMAIL_USER}>`,
+    to,
+    subject,
+    html,
+  };
+
+  const info = await transporter.sendMail(mailOptions);
+
+  // 3) Log useful info
+  console.log("✅ Email sent:", info.response);
+  console.log("📨 Message ID:", info.messageId);
+
+  return info;
+};
+
+module.exports = sendEmail;

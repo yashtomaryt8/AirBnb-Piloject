@@ -15,3 +15,31 @@
 2025-04-25T22:37:58.515Z error: 500 ~ Cannot read properties of undefined (reading 'create') - POST - /api/booking/create - ::1
 2025-04-28T20:08:10.459Z error: 500 ~ sendEmail is not a function - POST - /api/booking/create - ::1
 2025-04-30T10:15:00.834Z error: 500 ~ No bookings found for this user - GET - /api/booking/user-bookings/6811f80c5728973517d05ad9 - ::1
+2025-04-30T12:07:58.615Z error: 500 ~  - POST - /api/booking/create - ::1
+2025-04-30T12:08:20.212Z error: 500 ~  - POST - /api/booking/create - ::1
+2025-04-30T12:08:30.154Z error: 500 ~ Property not found - POST - /api/booking/create - ::1
+2025-04-30T12:14:31.500Z error: 500 ~  - POST - /api/booking/create - ::1
+2025-04-30T12:15:22.521Z error: 500 ~ Property not found - GET - /api/property/read/680b741fe997f1498b86bf92 - ::1
+2025-04-30T12:15:44.941Z error: 500 ~  - POST - /api/booking/create - ::1
+2025-04-30T12:16:30.572Z error: 500 ~  - POST - /api/booking/create - ::1
+2025-04-30T12:17:32.178Z error: 500 ~  - POST - /api/booking/create - ::1
+2025-04-30T12:17:47.516Z error: 500 ~ Property not found - POST - /api/booking/create - ::1
+2025-04-30T12:20:53.882Z error: 500 ~ Property not found - POST - /api/booking/create - ::1
+2025-04-30T12:39:33.074Z error: 500 ~ Invalid credentials - POST - /api/auth/login - ::1
+2025-04-30T12:42:07.432Z error: 500 ~ No bookings found for this user - GET - /api/booking/user-bookings/68121a27d7a28dff5eed6cb9 - ::1
+2025-04-30T13:06:20.680Z error: 500 ~ E11000 duplicate key error collection: Pilo-Ject.users index: username_1 dup key: { username: "User_645" } - POST - /api/auth/register - ::1
+2025-04-30T13:11:37.065Z error: 500 ~ User already exists - POST - /api/auth/register - ::1
+2025-04-30T15:04:09.606Z error: 500 ~ Amount and currency are required - POST - /api/payment/payment-process - ::1
+2025-04-30T15:04:35.941Z error: 500 ~ Payment failed - POST - /api/payment/payment-process - ::1
+2025-04-30T15:05:16.720Z error: 500 ~ Amount and currency are required - POST - /api/payment/payment-process - ::1
+2025-05-01T14:13:29.055Z error: 500 ~ No bookings found for this user - GET - /api/booking/user-bookings/6813817da915d87d67fdddf0 - ::1
+2025-05-01T14:37:43.144Z error: 500 ~ Payment failed - POST - /api/payment/payment-process - ::1
+2025-05-01T14:37:58.207Z error: 500 ~ Payment failed - POST - /api/payment/payment-process - ::1
+2025-05-01T14:38:59.011Z error: 500 ~ Payment failed - POST - /api/payment/payment-process - ::1
+2025-05-01T14:47:27.155Z error: 500 ~ Payment failed - POST - /api/payment/payment-process - ::1
+2025-05-01T14:48:20.057Z error: 500 ~ Payment failed - POST - /api/payment/payment-process - ::1
+2025-05-01T14:48:32.975Z error: 500 ~ Payment failed - POST - /api/payment/payment-process - ::1
+2025-05-01T14:49:55.156Z error: 500 ~ Payment failed - POST - /api/payment/payment-process - ::1
+2025-05-01T14:51:02.312Z error: 500 ~ Payment failed - POST - /api/payment/payment-process - ::1
+2025-05-01T14:56:33.269Z error: 500 ~ Payment verification failed - POST - /api/payment/payment-verify - ::1
+2025-05-01T14:57:01.997Z error: 500 ~ Booking not found - POST - /api/payment/payment-verify - ::1
