@@ -1,4 +1,5 @@
 const express = require('express')
+const cors = require('cors')
 const app = express()
 
 const cookieParser = require('cookie-parser')
@@ -25,6 +26,10 @@ app.use(session({ secret: process.env.SESSION_SECRET || 'your-secret-key', resav
 // Passport Setup
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(cors({
+    origin: true,
+    credentials: true,
+}))
 
 app.get('/', (req,res) => {
     res.send('Hello World!')

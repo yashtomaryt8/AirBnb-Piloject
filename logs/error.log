@@ -74,3 +74,19 @@
 2025-05-05T14:26:51.421Z error: 500 ~ All fields are required - POST - /api/review/create - ::1
 2025-05-05T14:27:06.139Z error: 500 ~ You can only review properties you have booked - POST - /api/review/create - ::1
 2025-05-05T14:31:03.276Z error: 500 ~ Review not found - DELETE - /api/review/delete/6817c805659b5eb716f66758 - ::1
+2025-05-05T15:30:05.950Z error: 400 ~ Expected double-quoted property name in JSON at position 162 (line 7 column 1) - PUT - /api/auth/update-profile - ::1
+2025-05-05T15:30:40.249Z error: 500 ~ Invalid credentials - POST - /api/auth/login - ::1
+2025-05-05T15:33:05.877Z error: 500 ~ Invalid credentials - POST - /api/auth/login - ::1
+2025-05-05T15:34:04.507Z error: 500 ~ newToken is not defined - PUT - /api/auth/update-profile - ::1
+2025-05-05T15:34:21.046Z error: 500 ~ newToken is not defined - PUT - /api/auth/update-profile - ::1
+2025-05-05T15:35:55.837Z error: 500 ~ Invalid credentials - POST - /api/auth/login - ::1
+2025-05-05T15:41:58.233Z error: 500 ~ Cannot read properties of undefined (reading 'username') - POST - /api/auth/forgot-password - ::1
+2025-05-05T15:47:11.272Z error: 500 ~ Cannot read properties of undefined (reading 'username') - POST - /api/auth/forgot-password - ::1
+2025-05-05T15:49:08.576Z error: 500 ~ No recipients defined - POST - /api/auth/forgot-password - ::1
+2025-05-05T15:51:08.937Z error: 500 ~ User already exists - POST - /api/auth/register - ::1
+2025-05-05T15:51:22.204Z error: 500 ~ No recipients defined - POST - /api/auth/forgot-password - ::1
+2025-05-05T15:52:37.150Z error: 500 ~ No recipients defined - POST - /api/auth/forgot-password - ::1
+2025-05-05T15:53:27.506Z error: 500 ~ No recipients defined - POST - /api/auth/forgot-password - ::1
+2025-05-05T15:56:30.385Z error: 500 ~ No recipients defined - POST - /api/auth/forgot-password - ::1
+2025-05-05T15:56:56.985Z error: 500 ~ No recipients defined - POST - /api/auth/forgot-password - ::1
+2025-05-05T16:04:17.891Z error: 500 ~ You are not logged in - GET - /api/admin/all-users - ::1

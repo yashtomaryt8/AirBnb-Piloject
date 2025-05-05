@@ -74,7 +74,6 @@ const createBookingController = async (req, res, next) => {
       sendEmail(
         "yashtomar.yt8@gmail.com",  // req.user.email, // Uncomment this line to send email to the user
         'Booking Confirmation',
-        'Your booking is confirmed!',
         html
       ).catch(err => console.error('📧 Email failed:', err.message));
   

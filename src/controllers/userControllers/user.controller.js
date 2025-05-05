@@ -1,7 +1,8 @@
 const User = require('../../models/userModels/user.model')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
-const cookieParser = require('cookie-parser')
+const { resetPasswordTemplate } = require('../../utils/emailTemplate')
+const sendEmail = require('../../utils/email')
 const cacheClient = require('../../services/cache.services')
 const CustomError = require('../../utils/customError')
 
@@ -105,22 +106,117 @@ const logoutController = async (req, res, next) => {
 
 const currentUserController = async (req, res, next) => {
   try {
-    const user = req.user
+    const token = req.cookies.token;
+    if (!token) {
+      return next(new CustomError('No token found', 401));
+    }
+    const isBlacklisted = await cacheClient.get(token);
+    if (isBlacklisted) {
+      return next(new CustomError('Token is blacklisted', 401));
+    }
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const user = await User.findById(decoded.id).select('-password -__v');
     if (!user) {
       return next(new CustomError('User not found', 404));
     }
     res.status(200).json({
-      message: 'User found successfully',
       success: true,
+      user
+    });
+  } catch (error) {
+    return next(new CustomError(error.message, 500));
+  }
+}
+
+const updateUserProfile = async (req, res, next) => {
+  try {
+    const { username, email, mobile, address, newPassword } = req.body
+
+    const user = await User.findOne({ email: req.user.email })
+
+    if (!user) {
+      return next(new CustomError('User not found', 404))
+    }
+
+    if (username) {
+      user.username = username
+    }
+    if (email) {
+      user.email = email
+    }
+    if (mobile) {
+      user.mobile = mobile
+    }
+    if (address) {
+      user.address = address
+    }
+    
+    await user.save()
+    
+    const newToken = await user.generateAuthToken()
+
+
+    if (!newToken && newPassword) {
+      return next(new CustomError('Token not generated', 500))
+    }
+
+    res.cookie('token', newToken, {
+      httpOnly: true,
+      sameSite: 'none'
+    })
+
+    res.status(200).json({
+      success: true,
+      message: 'User profile updated successfully',
       user: {
         id: user._id,
         username: user.username,
         email: user.email,
         mobile: user.mobile,
         address: user.address
-      }
-    });
-  } catch (error) {
+      },
+      token: newToken
+    })
+  }
+  catch (error) {
+    console.log('Error updating profile ',error);
+    return next(new CustomError(error.message, 500));
+  }
+}
+
+const resetPasswordController = async (req, res, next) => {
+  try {
+    const { email } = req.body
+
+    if (!email) {
+      return next(new CustomError('Email is required', 400))
+    }
+
+    const user = await User.findOne({ email })
+
+    if (!user) {
+      return next(new CustomError('User not found', 404))
+    }
+
+    const rawToken = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' })
+
+    const resetLink = `http://localhost/api/user/reset-password/${rawToken}`
+
+    const emailTemplate = resetPasswordTemplate(user.username, resetLink)
+  
+    sendEmail(
+      "yashtomar.yt8@gmail.com",  // req.user.email, // Uncomment this line to send email to the user
+      'Reset Password',
+      emailTemplate
+    ).catch(err => console.error('📧 Email failed:', err.message));
+
+    res.status(200).json({
+      success: true,
+      message: 'Reset password link sent to your email'
+    })
+  }
+  catch (error) {
+    console.log('Error sending reset password email ',error);
     return next(new CustomError(error.message, 500));
   }
 }
@@ -132,6 +228,8 @@ module.exports = {
   registerController,
   loginController,
   logoutController,
-  currentUserController
+  currentUserController,
+  updateUserProfile,
+  resetPasswordController
 };
 
