@@ -59,3 +59,18 @@
 2025-05-04T20:02:08.099Z error: 500 ~ You are not authorized to access this route - GET - /api/admin/all-users - ::1
 2025-05-04T20:02:32.782Z error: 500 ~ Invalid credentials - POST - /api/auth/login - ::1
 2025-05-04T20:02:38.226Z error: 500 ~ isAdmin is not defined - POST - /api/auth/register - ::1
+2025-05-05T14:11:34.925Z error: 500 ~ All fields are required - POST - /api/review/create - ::1
+2025-05-05T14:12:13.170Z error: 500 ~ All fields are required - POST - /api/review/create - ::1
+2025-05-05T14:13:55.967Z error: 500 ~ All fields are required - POST - /api/review/create - ::1
+2025-05-05T14:17:27.398Z error: 500 ~ You can only review properties you have booked - POST - /api/review/create - ::1
+2025-05-05T14:19:02.272Z error: 500 ~ You can only review properties you have booked - POST - /api/review/create - ::1
+2025-05-05T14:19:28.609Z error: 500 ~ You can only review properties you have booked - POST - /api/review/create - ::1
+2025-05-05T14:22:26.494Z error: 500 ~ You can only review properties you have booked - POST - /api/review/create - ::1
+2025-05-05T14:22:36.862Z error: 500 ~ You can only review properties you have booked - POST - /api/review/create - ::1
+2025-05-05T14:23:12.348Z error: 500 ~ Review creation failed - POST - /api/review/create - ::1
+2025-05-05T14:23:46.874Z error: 500 ~ You can only review properties you have booked - POST - /api/review/create - ::1
+2025-05-05T14:24:39.467Z error: 500 ~ All fields are required - POST - /api/review/create - ::1
+2025-05-05T14:26:14.973Z error: 500 ~ All fields are required - POST - /api/review/create - ::1
+2025-05-05T14:26:51.421Z error: 500 ~ All fields are required - POST - /api/review/create - ::1
+2025-05-05T14:27:06.139Z error: 500 ~ You can only review properties you have booked - POST - /api/review/create - ::1
+2025-05-05T14:31:03.276Z error: 500 ~ Review not found - DELETE - /api/review/delete/6817c805659b5eb716f66758 - ::1

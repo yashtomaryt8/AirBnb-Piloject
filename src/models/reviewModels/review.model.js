@@ -1,12 +1,12 @@
 const mongoose = require('mongoose')
 
 const reviewSchema = new mongoose.Schema({
-    property: {
+    PropertyId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Property',
         required: true
     },
-    user: {
+    userId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
         required: true

@@ -6,12 +6,13 @@ const customError = require('../../utils/customError')
 const createReviewController = async (req, res, next) => {
     try {
         const { rating, comment, PropertyId } = req.body
-
+        // console.log(rating, comment, PropertyId)
         if (!rating || !comment || !PropertyId) {
             return next(new customError('All fields are required', 400))
         }
         
-        const booking = await Booking.findOne({ userId: req.user._id, PropertyId: PropertyId })
+        const booking = await Booking.findOne({ userId: req.user._id, propertyId: PropertyId })
+        // console.log(req.user._id, PropertyId)
         if (!booking) {
             return next(new customError('You can only review properties you have booked', 400))
         }
@@ -40,7 +41,7 @@ const createReviewController = async (req, res, next) => {
 const deleteReviewController = async (req, res, next) => {
     try{
         const { id } = req.params
-
+        console.log(id)
         if (!id) {
             return next(new customError('Review ID is required', 400))
         }
@@ -79,6 +80,12 @@ const updateReviewController = async (req, res, next) => {
         if (!updatedReview) {
             return next(new customError('Review not found', 404))
         }
+
+        res.status(200).json({
+            success: true,
+            message: 'Review updated successfully',
+            review: updatedReview
+        })
     }
     catch (error) {
         console.error('Error updating review:', error)
