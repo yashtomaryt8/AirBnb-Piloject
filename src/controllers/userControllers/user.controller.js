@@ -7,7 +7,7 @@ const CustomError = require('../../utils/customError')
 
 
 const registerController = async (req, res, next) => {
-  const { username, email, mobile, address, password } = req.body
+  const { username, email, mobile, address, password, isAdmin } = req.body
 
   try {
     const existingUser = await User.findOne({ email })
@@ -20,7 +20,8 @@ const registerController = async (req, res, next) => {
       email,
       mobile,
       address,
-      password
+      password,
+      isAdmin
     })
 
     const token = await user.generateAuthToken();
@@ -37,7 +38,8 @@ const registerController = async (req, res, next) => {
         username: user.username,
         email: user.email,
         mobile: user.mobile,
-        address: user.address
+        address: user.address,
+        isAdmin: user.isAdmin
       },
       token
     })
