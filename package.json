@@ -1,0 +1,11 @@
+{
+  "dependencies": {
+    "multer": "^2.0.1"
+  },
+  "scripts": {
+    "dev": "concurrently \"yarn --cwd client start\" \"yarn --cwd server start\""
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.0"
+  }
+}
